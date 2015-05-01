@@ -1,20 +1,72 @@
 ---
-title: "QMB Exercise 2"
-output: pdf_document
+title: "QMB Exercise 2 - Estimation and Testing"
+author: "Karin Gryzlak & Dino Nienhold"
+date: "10 May, 2015"
+output:
+  pdf_document:
+    fig_caption: yes
+    
 ---
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+#Introduction
+The following report is based on the QMB Exercise 2 - Estimation and Testing. The task description pdf file is bis_ex2-EstimationTesting-20150429.pdf
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+#Requirements
+Please make sure that you the following packages loaded in your workspace.
+```{r, message=F, warning=F}
+library("dplyr")
+library("ggplot2")
+```
 
+#Data Set
+Please make sure you have the file housingrents.csv in the subdirectoy Data in your workspace.
 ```{r}
-summary(cars)
+housingrents <- read.csv("./Data/housingrents.csv",sep=";")
+```
+\pagebreak
+
+##Data Processing
+For analysis purposes it is necessary to convert the rooms and NRE variable to a factor. Furthermore a new variable rps (rent per square meter) is created
+```{r}
+housingrents <- mutate(housingrents, rooms = factor(rooms), 
+  nre = factor(nre,levels=c(0,1),labels=c("no","yes")))
+housingrents <- mutate(housingrents,rps = rent/area)
 ```
 
-You can also embed plots, for example:
+##Task 1
+...
+```{r}
 
-```{r, echo=FALSE}
-plot(cars)
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+##Conclusion
+...
+
+
+\pagebreak
+
+##Task 2
+...
+```{r}
+The qqplot should help to get a better understanding wether the distribution of the variable is normally distributed.
+```{r}
+qqnorm(housingrents$rps)
+qqline(housingrents$rps, col = 2)
+```
+```
+
+##Conclusion
+...
+
+\pagebreak
+
+##Task 3
+...
+```{r}
+
+
+```
+
+##Conclusion
+...
+
