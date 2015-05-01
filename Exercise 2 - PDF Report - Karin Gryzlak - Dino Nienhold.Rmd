@@ -16,6 +16,8 @@ Please make sure that you the following packages loaded in your workspace.
 ```{r, message=F, warning=F}
 library("dplyr")
 library("ggplot2")
+library("ggExtra")
+library("gridExtra")
 ```
 
 #Data Set
@@ -46,14 +48,28 @@ housingrents <- mutate(housingrents,rps = rent/area)
 \pagebreak
 
 ##Task 2
-...
+Task 2 checks normality of variable rent per square (rps). Additionally t-tests are conducted
+
+### a)
+In this sub task the normal distribution of the variable rpf the NRE respectively non-NRE appartments are checked.
+Create two datasets as a first step:
 ```{r}
-The qqplot should help to get a better understanding wether the distribution of the variable is normally distributed.
-```{r}
-qqnorm(housingrents$rps)
-qqline(housingrents$rps, col = 2)
+nrehousing <- filter(housingrents,nre=="yes")
+nonnrehousing <- filter(housingrents,nre=="no")
 ```
-```
+Check normal distribution of rps variable for nre houses:
+
+p1 <- qplot(x = 1, y = rps, data = nrehousing, xlab = "", geom = 'boxplot') +
+        coord_flip(ylim=c(0,60))
+
+p2 <- ggplot(nrehousing, aes(x = rps)) +
+        geom_histogram(colour="black", fill="white") +
+        coord_cartesian(xlim=c(0,60)) 
+
+grid.arrange(p1, p2, widths = c(1, 2))
+
+
+
 
 ##Conclusion
 ...
