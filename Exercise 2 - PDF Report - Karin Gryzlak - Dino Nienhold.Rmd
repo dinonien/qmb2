@@ -5,7 +5,6 @@ date: "10 May, 2015"
 output:
   pdf_document:
     fig_caption: yes
-    
 ---
 
 #Introduction
@@ -25,7 +24,7 @@ Please make sure you have the file housingrents.csv in the subdirectoy Data in y
 ```{r}
 housingrents <- read.csv("./Data/housingrents.csv",sep=";")
 ```
-\pagebreak
+
 
 ##Data Processing
 For analysis purposes it is necessary to convert the rooms and NRE variable to a factor. Furthermore a new variable rps (rent per square meter) is created
@@ -34,6 +33,8 @@ housingrents <- mutate(housingrents, rooms = factor(rooms),
   nre = factor(nre,levels=c(0,1),labels=c("no","yes")))
 housingrents <- mutate(housingrents,rps = rent/area)
 ```
+
+\pagebreak
 
 ##Task 1
 ...
@@ -57,8 +58,9 @@ Create two datasets as a first step:
 nrehousing <- filter(housingrents,nre=="yes")
 nonnrehousing <- filter(housingrents,nre=="no")
 ```
-Check normal distribution of rps variable for nre houses:
+Check normal distribution of rps variable for NRE appartments:
 
+```{r}
 p1 <- qplot(x = 1, y = rps, data = nrehousing, xlab = "", geom = 'boxplot') +
         coord_flip(ylim=c(0,60))
 
@@ -67,6 +69,23 @@ p2 <- ggplot(nrehousing, aes(x = rps)) +
         coord_cartesian(xlim=c(0,60)) 
 
 grid.arrange(p1, p2, widths = c(1, 2))
+```
+
+Check normal distribution of rps variable for non-NRE appartments:
+
+```{r}
+p1 <- qplot(x = 1, y = rps, data = nrehousing, xlab = "", geom = 'boxplot') +
+        coord_flip(ylim=c(0,60))
+
+p2 <- ggplot(nrehousing, aes(x = rps)) +
+        geom_histogram(colour="black", fill="white") +
+        coord_cartesian(xlim=c(0,60)) 
+
+grid.arrange(p1, p2, widths = c(1, 2))
+```
+
+
+
 
 
 
