@@ -106,9 +106,9 @@ Task 2 checks normality of variable rent per square (rps). Additionally t-tests 
 
 ### a)
 In this sub task the distribution of the variable rps for NRE respectively non-NRE appartments are checked for normality.
-Figure 1 shows that the distribution is right skewed with several outliers on the higher rps range. 
+Figure 2 shows that the distribution is right skewed with several outliers on the higher rps range. 
 Skewness value is `r skewness(nrehousing$rps)`.
-Figure 2 shows a qq plot. The plot does also show the outliers and the non-normality of the distribution. 
+Figure 3 shows a qq plot. The plot does also show the outliers and the non-normality of the distribution. 
 ```{r, fig.cap="Boxplot and Histogramm for variable rps for NRE appartments"}
 p1 <- qplot(x = 1, y = rps, data = nrehousing, xlab = "", geom = 'boxplot') +
         coord_flip(ylim=c(0,60)) 
@@ -129,12 +129,11 @@ print(gg_qq(nrehousing$rps))
 ```
 
 \pagebreak
-
 Check normal distribution of rps variable for non-NRE appartments:
-Figure 3 shows that the distribution is right skewed with several outliers on the higher rps range. 
+Figure 4 shows that the distribution is right skewed with several outliers on the higher rps range. 
 Skewness value is `r skewness(nonnrehousing$rps)`.
-Figure 4 shows a qq plot. The plot does also show the outliers and the non-normality of the distribution.
-```{r,fig.cap="Boxplot and Histogramm for variable rps for non-NRE appartments"}
+Figure 5 shows a qq plot. The plot does also show the outliers and the non-normality of the distribution.
+```{r, fig.cap="Boxplot and Histogramm for variable rps for non-NRE appartments"}
 p1 <- qplot(x = 1, y = rps, data = nonnrehousing, xlab = "", geom = 'boxplot') +
         coord_flip(ylim=c(0,60))
 
@@ -145,7 +144,9 @@ p2 <- ggplot(nonnrehousing, aes(x = rps)) +
 
 grid.arrange(p1, p2, widths = c(1, 2))
 ```
+
 \pagebreak
+
 ```{r, fig.cap="QQ Plot for variable rps for non-NRE appartments"}
 print(gg_qq(nonnrehousing$rps))
 ```
@@ -191,24 +192,35 @@ t.test(housingrents$rps~housingrents$nre,alternative = "greater", mu=0, var.equa
 \pagebreak
 
 ##Task 3
-http://ww2.coastal.edu/kingw/statistics/R-tutorials/independ.html
-http://geneseo.edu/~bearden/socl211/chisquareweb/chisquare.html
+In this task we conduct chi-square test of indepedence to test if the variable rooms is indepent from the variable nr.
+
+###a)
+In this subtask the chi-square test is conducted.
+```{r}
+housingrentTbl <- xtabs(~rooms+nre, data=housingrents)
+```
 
 ```{r}
-
-housingrentTbl <- xtabs(~rooms+nre, data=housingrents)
-housingrentChi <- chisq.test(housingrentTbl,simulate.p.value=TRUE) 
-housingrentChi
-housingrentChi$observed
-housingrentChi$expected
-housingrentChi$resid
-resid(housingrentChi)
-
+chisq.test(housingrentTbl) 
 
 ```
 
-##Conclusion
-...
+As the expected chi-square test value for the six room appartments is below 5. 
+The chi-square test computation of p values is done by Monte Carlo simulation.
+```{r}
+chisq.test(housingrentTbl,simulate.p.value=TRUE) 
+```
+
+The p value 0.000499 is and below 0.01. 
+Therefore we reject the $\sf{H_{0}}$ and there is a strong evidence that the variables are not independent.
+
+
+###b)
+The residuals for the chi-square test are evaluated in this sub task.
+```{r}
+resid(chisq.test(housingrentTbl,simulate.p.value=TRUE))
+```
+The 3, 4 and 5 room appartments belonging to NRE have the lowest respectively lowest residuals. This means that they have the highest impact on the test.  
 
 \pagebreak
 
