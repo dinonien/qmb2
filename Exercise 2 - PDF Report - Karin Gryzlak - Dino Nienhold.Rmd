@@ -71,11 +71,11 @@ In this sub task a 95% confidence interval is created:
 me + c(-1,1) * qnorm(.975) * se
 ```
 
-We are 95% confident that the serice times are between `r me + c(-1) * qnorm(.975) * se` and `r me + c(1) * qnorm(.975) * se`.
+We are 95% confident that the the interval from `r me + c(-1) * qnorm(.975) * se` to `r me + c(1) * qnorm(.975) * se` contains the mean service times of repair cases of this company.
 
 ###d)
 
-A t-test is conducted to see if the mean of x is less than four hours.
+A Student's t-test is conducted to see if the mean of x is less than four hours.
 
 $\sf{H_{0}}$ = Mean is equal 4.
 
@@ -182,7 +182,7 @@ $\sf{H_{0}}$ = Mean diference of the variable rps for NRE and non-NRE appartment
 
 $\sf{H_{a}}$ = Mean diference of the variable rps for NRE and non-NRE appartments isgreater 0. 
 
-In the second t-test equal variance is  assumed. The p-value is `r rpsTTestGreater$p.value` and much higher than 0.05. 
+In the t-test equal variance is  assumed. The p-value is `r rpsTTestGreater$p.value` and much higher than 0.05. 
 The mean difference is `r rpsTTestGreater$estimate[[2]]-rpsTTestGreater$estimate[[1]] ` and lies in the 95% confidence interval of the estimated population mean of `r rpsTTestGreater$conf.int[1]` and  Infinity. 
 Therefore we fail to reject $\sf{H_{0}}$.
 
@@ -192,7 +192,7 @@ t.test(housingrents$rps~housingrents$nre,alternative = "greater", mu=0, var.equa
 \pagebreak
 
 ##Task 3
-In this task we conduct chi-square test of indepedence to test if the variable rooms is indepent from the variable nr.
+In this task we conduct chi-square test of indepedence to test if the variable rooms is indepent from the variable nre.
 
 ###a)
 In this subtask the chi-square test is conducted.
@@ -212,7 +212,7 @@ chisq.test(housingrentTbl,simulate.p.value=TRUE)
 ```
 
 The p value 0.000499 is and below 0.01. 
-Therefore we reject the $\sf{H_{0}}$ and there is a strong evidence that the variables are not independent.
+Therefore we reject  $\sf{H_{0}}$ and there is a strong evidence that the variables are not independent.
 
 
 ###b)
